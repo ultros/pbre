@@ -12,19 +12,11 @@ class Plugin(RegistryValues):
 
     def main(self):
         html_report = HtmlReport("Optical Media")
-        value_list = []
 
-        for value in self.get_values(self.registry_hive, self.registry_path, self.registry_keys):
-            if value is None:
-                value_list.append(f"!!!{None}!!!")
-            else:
-                value_list.append(value[0])
+        value_list = self.parse_values(self.registry_hive, self.registry_path, self.registry_keys)
 
-        try:
-            html_report.printh("ImgBurn")
-            html_report.printp(f"Total number of burns: {value_list[0]}")
-        except IndexError:
-            pass
+        html_report.printh("ImgBurn")
+        html_report.printp(f"Total number of burns: {value_list[0]}")
 
     if __init__ == "__main__":
         main()
