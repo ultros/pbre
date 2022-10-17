@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import importlib
 import os
 
@@ -28,6 +30,7 @@ def get_plugin_names():
 
 def import_plugin():
     for file in get_plugin_names():
+        print(f"[+] Running {file}...")
         plugin_module = importlib.import_module("plugins." + file[:-3])
         plugin = plugin_module.Plugin()
         plugin.main()
