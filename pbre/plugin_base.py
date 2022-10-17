@@ -1,5 +1,6 @@
 import winreg
 
+
 class RegistryValues:
 
     def __init__(self):
@@ -18,6 +19,9 @@ class RegistryValues:
         registry_hive = winreg.ConnectRegistry(None, hive)
         registry_key = winreg.OpenKey(registry_hive, key)
         for value_name in key_value:
-            values.append(winreg.QueryValueEx(registry_key, value_name))
+            try:
+                values.append(winreg.QueryValueEx(registry_key, value_name))
+            except FileNotFoundError:
+                print(f"Cannot find value for: {value_name}")
 
         return values

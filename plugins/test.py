@@ -1,5 +1,4 @@
-import winreg
-from plugin_base import RegistryValues
+from pbre.plugin_base import RegistryValues
 
 
 class Plugin(RegistryValues):

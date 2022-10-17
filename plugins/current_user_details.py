@@ -1,4 +1,5 @@
-from plugin_base import RegistryValues
+from pbre.plugin_base import RegistryValues
+from pbre.generate_report import HtmlReport
 
 
 class Plugin(RegistryValues):
@@ -11,10 +12,18 @@ class Plugin(RegistryValues):
                               "USERNAME", "USERPROFILE"]
 
     def main(self):
+        html_report = HtmlReport("Current User")
         value_list = []
         for value in self.get_values(self.registry_hive, self.registry_path, self.registry_keys):
             value_list.append(value[0])
-        print(value_list)
+
+        html_report.printh("Volatile Environment")
+        html_report.printp(f"HOMEPATH: {value_list[0]}")
+        html_report.printp(f"LOGONSERVER: {value_list[1]}")
+        html_report.printp(f"USERDOMAIN: {value_list[2]}")
+        html_report.printp(f"USERDOMAIN_ROAMINGPROFILE: {value_list[3]}")
+        html_report.printp(f"USERNAME: {value_list[4]}")
+        html_report.printp(f"USERPROFILE: {value_list[5]}")
 
     if __init__ == "__main__":
         main()
