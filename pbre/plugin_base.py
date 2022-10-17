@@ -1,3 +1,4 @@
+import sys
 import winreg
 
 
@@ -25,11 +26,16 @@ class RegistryValues:
             case "hcu":
                 hive = winreg.HKEY_CURRENT_USER
 
-        registry_hive = winreg.ConnectRegistry(None, hive)
+        try:
+            registry_hive = winreg.ConnectRegistry(None, hive)
+        except TypeError:
+            print(f"\t[!] Hive not found: {hive}.")
+            sys.exit(1)
+
         try:
             registry_key = winreg.OpenKey(registry_hive, key)
         except FileNotFoundError:
-            print(f"[!] Cannot find {key}.")
+            print(f"\t[!] Cannot find {key}.")
 
         for value_name in key_value:
             try:
