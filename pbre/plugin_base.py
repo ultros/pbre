@@ -17,11 +17,16 @@ class RegistryValues:
                 hive = winreg.HKEY_CURRENT_USER
 
         registry_hive = winreg.ConnectRegistry(None, hive)
-        registry_key = winreg.OpenKey(registry_hive, key)
-        for value_name in key_value:
-            try:
-                values.append(winreg.QueryValueEx(registry_key, value_name))
-            except FileNotFoundError:
-                print(f"Cannot find value for: {value_name}")
+        try:
+            registry_key = winreg.OpenKey(registry_hive, key)
+            for value_name in key_value:
+                try:
+                    values.append(winreg.QueryValueEx(registry_key, value_name))
+                except:
+                    values.append(None)
+                    print(f"\t[!] No value for {value_name}! Skipping...")
+        except FileNotFoundError:
+            print(f"\t[!] Cannot find value for: {key}")
+            pass
 
         return values

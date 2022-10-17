@@ -15,7 +15,10 @@ class Plugin(RegistryValues):
         html_report = HtmlReport("Current User")
         value_list = []
         for value in self.get_values(self.registry_hive, self.registry_path, self.registry_keys):
-            value_list.append(value[0])
+            if value is None:
+                value_list.append(f"!!!{None}!!!")
+            else:
+                value_list.append(value[0])
 
         html_report.printh("Volatile Environment")
         html_report.printp(f"HOMEPATH: {value_list[0]}")

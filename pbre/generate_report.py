@@ -15,8 +15,11 @@ class HtmlReport(Report):
     def printp(self, line: str):
         """Print an input in <p> tags."""
         with open(f"{self.report_file_name}.html", 'a') as file_obj:
-            file_obj.write(f"<p>{line}</p>\n")
-            file_obj.close()
+            try:
+                file_obj.write(f"<p>{line}</p>\n")
+                file_obj.close()
+            except IndexError:
+                pass
 
     def printh(self, line: str):
         """Print an input in <h3> tags."""
