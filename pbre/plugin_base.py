@@ -46,7 +46,7 @@ class RegistryValues:
 
         return values
 
-    #@trace
+    @trace
     def parse_values(self, registry_hive, registry_path, registry_keys):
         value_list = []
 

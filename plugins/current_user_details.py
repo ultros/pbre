@@ -8,7 +8,7 @@ class Plugin(RegistryValues):
         super().__init__()
         self.registry_hive = "hcu"
         self.registry_path = "Volatile Environment"
-        self.registry_keys = ["HOMEPATHs", "LOGONSERVER", "USERDOMAIN", "USERDOMAIN_ROAMINGPROFILE",
+        self.registry_keys = ["HOMEPATH", "LOGONSERVER", "USERDOMAIN", "USERDOMAIN_ROAMINGPROFILE",
                               "USERNAME", "USERPROFILE"]
 
     def main(self):
