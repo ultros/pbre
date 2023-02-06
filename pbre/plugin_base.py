@@ -23,8 +23,10 @@ class RegistryValues:
         assert hive != "" or None
 
         match hive:
-            case "hcu":
+            case "hkcu":
                 hive = winreg.HKEY_CURRENT_USER
+            case"hklm":
+                hive = winreg.HKEY_LOCAL_MACHINE
 
         try:
             registry_hive = winreg.ConnectRegistry(None, hive)
@@ -46,6 +48,27 @@ class RegistryValues:
 
         return values
 
+    def discover_values(self, hive, key):
+        values = []
+        assert hive != "" or None
+
+        match hive:
+            case "hkcu":
+                hive = winreg.HKEY_CURRENT_USER
+            case "hklm":
+                hive = winreg.HKEY_LOCAL_MACHINE
+
+        key = winreg.OpenKey(hive, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run")
+
+        for value_name in range(100):
+            try:
+                values.append(winreg.EnumValue(key, value_name))
+            except:
+                pass
+                # values.append(None)
+                # print(f"\t[!] No value for {value_name}! Skipping...")
+
+        return values
     @trace
     def parse_values(self, registry_hive, registry_path, registry_keys):
         value_list = []
